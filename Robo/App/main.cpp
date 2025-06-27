@@ -9,6 +9,6 @@
 int main(int argc, char *argv[])
 {
     set_qt_environment();
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     return app.exec();
 }

@@ -5,6 +5,8 @@ import QtQuick.Timeline
 
 Node {
     id: node
+    property bool isPlaying: vehicleToHero.running || robotToHero.running || toVehicle.running  || toRobot.running
+    state: rootRectangle.currentState
     scale.x: 100
     scale.y: 100
     scale.z: 100
@@ -30,16 +32,6 @@ Node {
         generateMipmaps: true
         mipFilter: Texture.Linear
         source: "maps/Mirage_0_Body_normal.png"
-    }
-    SpecularGlossyMaterial {
-        id: mirage_0_Body_material
-        objectName: "Mirage_0_Body"
-        albedoMap: textures_Mirage_0_Body_diffuse_png_texture
-        specularMap: textures_Mirage_0_Body_specularGlossiness_png_texture
-        glossinessMap: textures_Mirage_0_Body_specularGlossiness_png_texture
-        normalMap: textures_Mirage_0_Body_normal_png_texture
-        cullMode: SpecularGlossyMaterial.NoCulling
-        alphaMode: SpecularGlossyMaterial.Opaque
     }
     Skin {
         id: skin
@@ -752,13 +744,14 @@ Node {
         startFrame: 0
         endFrame: 1834
         currentFrame: 0
-        enabled: true
+        enabled: false
         animations: TimelineAnimation {
+            id: vehicleToHero
+            running: transform_to_vehicle_hero_timeline.enabled
+            loops: 1
             duration: 1834
             from: 0
             to: 1834
-            running: true
-            loops: Animation.Infinite
         }
         KeyframeGroup {
             target: bn_l_weapon_017
@@ -1226,13 +1219,14 @@ Node {
         startFrame: 0
         endFrame: 2367
         currentFrame: 0
-        enabled: true
+        enabled: false
         animations: TimelineAnimation {
+            id: robotToHero
+            running: transform_to_robot_hero_timeline.enabled
+            loops: 1
             duration: 2367
             from: 0
             to: 2367
-            running: true
-            loops: Animation.Infinite
         }
         KeyframeGroup {
             target: bn_l_weapon_017
@@ -1703,13 +1697,14 @@ Node {
         startFrame: 0
         endFrame: 1001
         currentFrame: 0
-        enabled: true
+        enabled: false
         animations: TimelineAnimation {
+            id: toVehicle
+            running: transform_to_vehicle_timeline.enabled
+            loops: 1
             duration: 1001
             from: 0
             to: 1001
-            running: true
-            loops: Animation.Infinite
         }
         KeyframeGroup {
             target: bn_l_weapon_017
@@ -2177,13 +2172,14 @@ Node {
         startFrame: 0
         endFrame: 1001
         currentFrame: 0
-        enabled: true
+        enabled: false
         animations: TimelineAnimation {
+            id: toRobot
+            running: transform_to_robot_timeline.enabled
+            loops: 1
             duration: 1001
             from: 0
             to: 1001
-            running: true
-            loops: Animation.Infinite
         }
         KeyframeGroup {
             target: bn_l_weapon_017
@@ -2650,4 +2646,59 @@ Node {
             keyframeSource: "animations/bn_pelvis01_02_rotation_3.qad"
         }
     }
+
+    Node {
+        id: __materialLibrary__
+
+        SpecularGlossyMaterial {
+            id: mirage_0_Body_material
+            objectName: "Mirage_0_Body"
+            albedoMap: textures_Mirage_0_Body_diffuse_png_texture
+            specularMap: textures_Mirage_0_Body_specularGlossiness_png_texture
+            glossinessMap: textures_Mirage_0_Body_specularGlossiness_png_texture
+            normalMap: textures_Mirage_0_Body_normal_png_texture
+            cullMode: SpecularGlossyMaterial.NoCulling
+            alphaMode: SpecularGlossyMaterial.Opaque
+        }
+    }
+    states: [
+        State {
+            name: "VehicleToHero"
+
+            PropertyChanges {
+                target: transform_to_vehicle_hero_timeline
+                enabled: true
+            }
+        },
+        State {
+            name: "RobotToHero"
+
+            PropertyChanges {
+                target: transform_to_robot_hero_timeline
+                enabled: true
+            }
+        },
+        State {
+            name: "ToVehicle"
+
+            PropertyChanges {
+                target: transform_to_vehicle_timeline
+                enabled: true
+            }
+        },
+        State {
+            name: "ToRobot"
+
+            PropertyChanges {
+                target: transform_to_robot_timeline
+                enabled: true
+            }
+        }
+    ]
 }
+
+/*##^##
+Designer {
+    D{i:0;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+}
+##^##*/

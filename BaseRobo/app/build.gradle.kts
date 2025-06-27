@@ -4,7 +4,7 @@ plugins {
     id("org.qtproject.qt.gradleplugin") version "1.+"
 }
 QtBuild {
-    qtPath = file("C:/Qt/6.9.0")
+    qtPath = file("D:/Qt/6.9.1")
     projectPath = file("../../Robo")
 }
 android {
