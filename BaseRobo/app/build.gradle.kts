@@ -5,8 +5,11 @@ plugins {
 }
 
 QtBuild {
-    // Set your Qt path here
-    // qtPath = file("/Users/name/Qt/version")
+    //set qtPath to your installed Qt Kit Location
+    //for example for the Qt 6.9.1 release :
+    //on windows "C:/Qt/6.9.1"
+    //on linux "/home/username/Qt/6.9.1"
+    qtPath = file("")
     projectPath = file("../../Robo")
 }
 android {
