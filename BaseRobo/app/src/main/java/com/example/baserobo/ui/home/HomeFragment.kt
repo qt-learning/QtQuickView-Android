@@ -9,6 +9,7 @@ import com.example.baserobo.databinding.FragmentHomeBinding
 import org.qtproject.example.RoboApp.RoboContent.Screen01
 import org.qtproject.qt.android.QtQuickView
 import org.qtproject.qt.android.QtQuickViewContent
+import org.qtproject.qt.android.QtSignalListener
 import org.qtproject.qt.android.QtQmlStatus
 import org.qtproject.qt.android.QtQmlStatusChangeListener
 
@@ -45,8 +46,13 @@ class HomeFragment : Fragment(), QtQmlStatusChangeListener {
     }
 
     override fun onStatusChanged(status: QtQmlStatus?, content: QtQuickViewContent?) {
-        homeQmlContent.connectIsPlayingChangeListener{ _:String, value: Boolean? ->
-            binding.buttonOne.text = if (value == true) "Playing...." else "Cycle Animations"
+        if (status == QtQmlStatus.READY) {
+            homeQtQuickView.connectSignalListener(
+                "isPlayingChanged", arrayOf<Class<*>>(),
+                QtSignalListener<Boolean> { _, value ->
+                    binding.buttonOne.text =
+                        if (value == true) "Playing...." else "Cycle Animations"
+                })
         }
     }
     
